@@ -1,36 +1,11 @@
 import { GoogleGenerativeAI } from '@google/generative-ai';
-import { Platform } from 'react-native';
 
-const API_KEY_STORE = 'gemini_api_key';
-
-function isWeb(): boolean {
-  return Platform.OS === 'web';
-}
-
-export async function getApiKey(): Promise<string | null> {
-  if (isWeb()) {
-    return localStorage.getItem(API_KEY_STORE);
+function getApiKey(): string {
+  const key = process.env.EXPO_PUBLIC_GEMINI_API_KEY;
+  if (!key || key === 'your_api_key_here') {
+    throw new Error('API key not configured. Add your Gemini API key to the .env file.');
   }
-  const SecureStore = require('expo-secure-store');
-  return await SecureStore.getItemAsync(API_KEY_STORE);
-}
-
-export async function setApiKey(key: string): Promise<void> {
-  if (isWeb()) {
-    localStorage.setItem(API_KEY_STORE, key);
-    return;
-  }
-  const SecureStore = require('expo-secure-store');
-  await SecureStore.setItemAsync(API_KEY_STORE, key);
-}
-
-export async function clearApiKey(): Promise<void> {
-  if (isWeb()) {
-    localStorage.removeItem(API_KEY_STORE);
-    return;
-  }
-  const SecureStore = require('expo-secure-store');
-  await SecureStore.deleteItemAsync(API_KEY_STORE);
+  return key;
 }
 
 export async function sendMessage(
@@ -40,9 +15,11 @@ export async function sendMessage(
   onDone: () => void,
   onError: (error: string) => void
 ) {
-  const apiKey = await getApiKey();
-  if (!apiKey) {
-    onError('API key not set. Go to Settings to add your Gemini API key.');
+  let apiKey: string;
+  try {
+    apiKey = getApiKey();
+  } catch (error: any) {
+    onError(error.message);
     return;
   }
 
