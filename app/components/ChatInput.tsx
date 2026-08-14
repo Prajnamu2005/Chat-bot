@@ -1,4 +1,4 @@
-﻿import React, { useState } from 'react';
+import React, { useState } from 'react';
 import { View, TextInput, TouchableOpacity, Text, StyleSheet, Keyboard } from 'react-native';
 import { Colors } from '../theme/colors';
 

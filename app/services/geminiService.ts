@@ -1,4 +1,4 @@
-﻿import { GoogleGenerativeAI } from '@google/generative-ai';
+import { GoogleGenerativeAI } from '@google/generative-ai';
 import * as SecureStore from 'expo-secure-store';
 
 const API_KEY_STORE = 'gemini_api_key';

@@ -1,4 +1,4 @@
-﻿export interface Chat {
+export interface Chat {
   id: string;
   title: string;
   createdAt: number;

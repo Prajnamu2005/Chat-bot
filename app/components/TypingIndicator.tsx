@@ -1,4 +1,4 @@
-﻿import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Animated, View, StyleSheet } from 'react-native';
 import { Colors } from '../theme/colors';
 

@@ -1,4 +1,4 @@
-﻿import { create } from 'zustand';
+import { create } from 'zustand';
 import { Chat, Message } from '../types';
 import * as DB from '../services/db';
 import { sendMessage } from '../services/geminiService';

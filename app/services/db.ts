@@ -1,4 +1,4 @@
-﻿import * as SQLite from 'expo-sqlite';
+import * as SQLite from 'expo-sqlite';
 import { Chat, Message } from '../types';
 
 let db: SQLite.SQLiteDatabase;
