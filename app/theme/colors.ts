@@ -1,0 +1,17 @@
+﻿export const Colors = {
+  primary: '#6C63FF',
+  secondary: '#FF6584',
+  background: '#F5F5F5',
+  surface: '#FFFFFF',
+  text: '#333333',
+  textLight: '#888888',
+  userBubble: '#6C63FF',
+  assistantBubble: '#E8E8E8',
+  userBubbleText: '#FFFFFF',
+  assistantBubbleText: '#333333',
+  error: '#FF4444',
+  success: '#44AA44',
+  border: '#E0E0E0',
+  inputBackground: '#FFFFFF',
+  placeholder: '#AAAAAA',
+};
