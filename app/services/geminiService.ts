@@ -1,17 +1,35 @@
 import { GoogleGenerativeAI } from '@google/generative-ai';
-import * as SecureStore from 'expo-secure-store';
+import { Platform } from 'react-native';
 
 const API_KEY_STORE = 'gemini_api_key';
 
+function isWeb(): boolean {
+  return Platform.OS === 'web';
+}
+
 export async function getApiKey(): Promise<string | null> {
+  if (isWeb()) {
+    return localStorage.getItem(API_KEY_STORE);
+  }
+  const SecureStore = require('expo-secure-store');
   return await SecureStore.getItemAsync(API_KEY_STORE);
 }
 
 export async function setApiKey(key: string): Promise<void> {
+  if (isWeb()) {
+    localStorage.setItem(API_KEY_STORE, key);
+    return;
+  }
+  const SecureStore = require('expo-secure-store');
   await SecureStore.setItemAsync(API_KEY_STORE, key);
 }
 
 export async function clearApiKey(): Promise<void> {
+  if (isWeb()) {
+    localStorage.removeItem(API_KEY_STORE);
+    return;
+  }
+  const SecureStore = require('expo-secure-store');
   await SecureStore.deleteItemAsync(API_KEY_STORE);
 }
 
