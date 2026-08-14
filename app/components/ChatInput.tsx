@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { View, TextInput, TouchableOpacity, Text, StyleSheet, Keyboard } from 'react-native';
-import { Colors } from '../theme/colors';
+import { useTheme } from '../theme/ThemeContext';
+import { ThemeColors } from '../theme/colors';
 
 interface Props {
   onSend: (text: string) => void;
@@ -9,6 +10,9 @@ interface Props {
 
 export default function ChatInput({ onSend, disabled }: Props) {
   const [text, setText] = useState('');
+  const { colors } = useTheme();
+
+  const styles = makeStyles(colors);
 
   const handleSend = () => {
     const trimmed = text.trim();
@@ -25,7 +29,7 @@ export default function ChatInput({ onSend, disabled }: Props) {
         value={text}
         onChangeText={setText}
         placeholder="Type a message..."
-        placeholderTextColor={Colors.placeholder}
+        placeholderTextColor={colors.placeholder}
         multiline
         maxLength={2000}
         editable={!disabled}
@@ -41,34 +45,36 @@ export default function ChatInput({ onSend, disabled }: Props) {
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flexDirection: 'row',
-    padding: 8,
-    backgroundColor: Colors.surface,
-    borderTopWidth: 1,
-    borderTopColor: Colors.border,
-    alignItems: 'flex-end',
-  },
-  input: {
-    flex: 1,
-    borderWidth: 1,
-    borderColor: Colors.border,
-    borderRadius: 20,
-    paddingHorizontal: 14,
-    paddingVertical: 10,
-    fontSize: 15,
-    maxHeight: 100,
-    backgroundColor: Colors.inputBackground,
-    color: Colors.text,
-  },
-  button: {
-    marginLeft: 8,
-    backgroundColor: Colors.primary,
-    borderRadius: 20,
-    paddingHorizontal: 18,
-    paddingVertical: 10,
-  },
-  buttonDisabled: { opacity: 0.5 },
-  buttonText: { color: '#FFFFFF', fontWeight: '600', fontSize: 15 },
-});
+function makeStyles(colors: ThemeColors) {
+  return StyleSheet.create({
+    container: {
+      flexDirection: 'row',
+      padding: 8,
+      backgroundColor: colors.surface,
+      borderTopWidth: 1,
+      borderTopColor: colors.border,
+      alignItems: 'flex-end',
+    },
+    input: {
+      flex: 1,
+      borderWidth: 1,
+      borderColor: colors.border,
+      borderRadius: 20,
+      paddingHorizontal: 14,
+      paddingVertical: 10,
+      fontSize: 15,
+      maxHeight: 100,
+      backgroundColor: colors.inputBackground,
+      color: colors.text,
+    },
+    button: {
+      marginLeft: 8,
+      backgroundColor: colors.primary,
+      borderRadius: 20,
+      paddingHorizontal: 18,
+      paddingVertical: 10,
+    },
+    buttonDisabled: { opacity: 0.5 },
+    buttonText: { color: '#FFFFFF', fontWeight: '600', fontSize: 15 },
+  });
+}

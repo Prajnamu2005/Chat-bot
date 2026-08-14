@@ -25,7 +25,7 @@ export async function sendMessage(
 
   try {
     const genAI = new GoogleGenerativeAI(apiKey);
-    const model = genAI.getGenerativeModel({ model: 'gemini-3.5-flash' });
+    const model = genAI.getGenerativeModel({ model: 'gemini-3.6-flash' });
 
     const chat = model.startChat({ history });
     const result = await chat.sendMessageStream(message);

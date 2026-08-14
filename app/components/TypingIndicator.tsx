@@ -1,11 +1,15 @@
 import React, { useEffect, useRef } from 'react';
 import { Animated, View, StyleSheet } from 'react-native';
-import { Colors } from '../theme/colors';
+import { useTheme } from '../theme/ThemeContext';
+import { ThemeColors } from '../theme/colors';
 
 export default function TypingIndicator() {
   const dot1 = useRef(new Animated.Value(0)).current;
   const dot2 = useRef(new Animated.Value(0)).current;
   const dot3 = useRef(new Animated.Value(0)).current;
+  const { colors } = useTheme();
+
+  const styles = makeStyles(colors);
 
   useEffect(() => {
     const animate = (value: Animated.Value, delay: number) =>
@@ -35,17 +39,19 @@ export default function TypingIndicator() {
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flexDirection: 'row',
-    padding: 14,
-    marginHorizontal: 12,
-    marginVertical: 4,
-    backgroundColor: Colors.assistantBubble,
-    borderRadius: 16,
-    borderBottomLeftRadius: 4,
-    alignSelf: 'flex-start',
-    gap: 4,
-  },
-  dot: { width: 8, height: 8, borderRadius: 4, backgroundColor: Colors.textLight, marginHorizontal: 2 },
-});
+function makeStyles(colors: ThemeColors) {
+  return StyleSheet.create({
+    container: {
+      flexDirection: 'row',
+      padding: 14,
+      marginHorizontal: 12,
+      marginVertical: 4,
+      backgroundColor: colors.assistantBubble,
+      borderRadius: 16,
+      borderBottomLeftRadius: 4,
+      alignSelf: 'flex-start',
+      gap: 4,
+    },
+    dot: { width: 8, height: 8, borderRadius: 4, backgroundColor: colors.textLight, marginHorizontal: 2 },
+  });
+}

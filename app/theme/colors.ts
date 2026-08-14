@@ -15,3 +15,5 @@ export const Colors = {
   inputBackground: '#FFFFFF',
   placeholder: '#AAAAAA',
 };
+
+export type ThemeColors = typeof Colors;

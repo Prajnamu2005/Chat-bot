@@ -16,6 +16,7 @@ interface ChatStore {
   createNewChat: () => Promise<string>;
   selectChat: (chatId: string) => Promise<void>;
   deleteChat: (chatId: string) => Promise<void>;
+  renameChat: (chatId: string, title: string) => Promise<void>;
   sendUserMessage: (text: string) => Promise<void>;
   clearError: () => void;
   clearAllChats: () => Promise<void>;
@@ -54,6 +55,11 @@ export const useChatStore = create<ChatStore>((set, get) => ({
       set({ activeChatId: null, messages: [] });
     }
     await state.loadChats();
+  },
+
+  renameChat: async (chatId: string, title: string) => {
+    await DB.updateChatTitle(chatId, title);
+    await get().loadChats();
   },
 
   sendUserMessage: async (text: string) => {

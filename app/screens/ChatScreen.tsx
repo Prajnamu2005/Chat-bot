@@ -8,14 +8,15 @@ import {
   Text,
   TouchableOpacity,
 } from 'react-native';
-import { RouteProp, useRoute, useNavigation, Link } from '@react-navigation/native';
+import { RouteProp, useRoute, useNavigation } from '@react-navigation/native';
 import { useChatStore } from '../store/chatStore';
 import { RootStackParamList } from '../types';
 import MessageBubble from '../components/MessageBubble';
 import ChatInput from '../components/ChatInput';
 import TypingIndicator from '../components/TypingIndicator';
 import ErrorBanner from '../components/ErrorBanner';
-import { Colors } from '../theme/colors';
+import { useTheme } from '../theme/ThemeContext';
+import { ThemeColors } from '../theme/colors';
 
 type RouteProps = RouteProp<RootStackParamList, 'Chat'>;
 
@@ -24,6 +25,7 @@ export default function ChatScreen() {
   const navigation = useNavigation();
   const { chatId } = route.params;
   const flatListRef = useRef<FlatList>(null);
+  const { colors } = useTheme();
 
   const {
     messages,
@@ -64,6 +66,8 @@ export default function ChatScreen() {
     });
   }
 
+  const styles = makeStyles(colors);
+
   return (
     <KeyboardAvoidingView
       style={styles.container}
@@ -71,9 +75,9 @@ export default function ChatScreen() {
       keyboardVerticalOffset={0}
     >
       <View style={styles.header}>
-        <Link to={{ screen: 'ChatList' }} style={styles.backBtn}>
+        <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backBtn}>
           <Text style={styles.backBtnText}>Back</Text>
-        </Link>
+        </TouchableOpacity>
         <Text style={styles.headerTitle} numberOfLines={1}>Chat</Text>
         <View style={{ width: 50 }} />
       </View>
@@ -96,19 +100,21 @@ export default function ChatScreen() {
   );
 }
 
-const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: Colors.background },
-  header: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    paddingHorizontal: 12,
-    paddingTop: 50,
-    paddingBottom: 12,
-    backgroundColor: Colors.primary,
-  },
-  backBtn: { padding: 8, width: 50 },
-  backBtnText: { color: '#FFFFFF', fontSize: 16 },
-  headerTitle: { fontSize: 18, fontWeight: '600', color: '#FFFFFF', flex: 1, textAlign: 'center' },
-  messageList: { paddingVertical: 8, paddingBottom: 8 },
-});
+function makeStyles(colors: ThemeColors) {
+  return StyleSheet.create({
+    container: { flex: 1, backgroundColor: colors.background },
+    header: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      paddingHorizontal: 12,
+      paddingTop: 50,
+      paddingBottom: 12,
+      backgroundColor: colors.primary,
+    },
+    backBtn: { padding: 8, width: 50 },
+    backBtnText: { color: '#FFFFFF', fontSize: 16 },
+    headerTitle: { fontSize: 18, fontWeight: '600', color: '#FFFFFF', flex: 1, textAlign: 'center' },
+    messageList: { paddingVertical: 8, paddingBottom: 8 },
+  });
+}
