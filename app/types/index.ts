@@ -16,5 +16,4 @@ export interface Message {
 export type RootStackParamList = {
   ChatList: undefined;
   Chat: { chatId: string };
-  Settings: undefined;
 };

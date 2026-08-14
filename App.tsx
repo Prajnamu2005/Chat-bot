@@ -7,9 +7,18 @@ import { RootStackParamList } from './app/types';
 import { initDatabase } from './app/services/db';
 import ChatListScreen from './app/screens/ChatListScreen';
 import ChatScreen from './app/screens/ChatScreen';
-import SettingsScreen from './app/screens/SettingsScreen';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
+
+const linking = {
+  prefixes: [],
+  config: {
+    screens: {
+      ChatList: '',
+      Chat: 'chat/:chatId',
+    },
+  },
+};
 
 export default function App() {
   const [ready, setReady] = useState(false);
@@ -27,11 +36,10 @@ export default function App() {
   }
 
   return (
-    <NavigationContainer>
+    <NavigationContainer linking={linking}>
       <Stack.Navigator initialRouteName="ChatList" screenOptions={{ headerShown: false }}>
         <Stack.Screen name="ChatList" component={ChatListScreen} />
         <Stack.Screen name="Chat" component={ChatScreen} />
-        <Stack.Screen name="Settings" component={SettingsScreen} />
       </Stack.Navigator>
       <StatusBar style="light" />
     </NavigationContainer>

@@ -8,9 +8,9 @@ import {
   Text,
   TouchableOpacity,
 } from 'react-native';
-import { RouteProp, useRoute, useNavigation } from '@react-navigation/native';
+import { RouteProp, useRoute, useNavigation, Link } from '@react-navigation/native';
 import { useChatStore } from '../store/chatStore';
-import { RootStackParamList, Message } from '../types';
+import { RootStackParamList } from '../types';
 import MessageBubble from '../components/MessageBubble';
 import ChatInput from '../components/ChatInput';
 import TypingIndicator from '../components/TypingIndicator';
@@ -71,9 +71,9 @@ export default function ChatScreen() {
       keyboardVerticalOffset={0}
     >
       <View style={styles.header}>
-        <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backBtn}>
+        <Link to={{ screen: 'ChatList' }} style={styles.backBtn}>
           <Text style={styles.backBtnText}>Back</Text>
-        </TouchableOpacity>
+        </Link>
         <Text style={styles.headerTitle} numberOfLines={1}>Chat</Text>
         <View style={{ width: 50 }} />
       </View>

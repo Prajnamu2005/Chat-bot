@@ -45,9 +45,6 @@ export default function ChatListScreen() {
     <View style={styles.container}>
       <View style={styles.header}>
         <Text style={styles.headerTitle}>AI Chat</Text>
-        <TouchableOpacity style={styles.settingsBtn} onPress={() => navigation.navigate('Settings')}>
-          <Text style={styles.settingsBtnText}>Settings</Text>
-        </TouchableOpacity>
       </View>
 
       {chats.length === 0 ? (
@@ -86,7 +83,7 @@ const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: Colors.background },
   header: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'center',
     alignItems: 'center',
     paddingHorizontal: 16,
     paddingTop: 50,
@@ -94,8 +91,6 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.primary,
   },
   headerTitle: { fontSize: 22, fontWeight: 'bold', color: '#FFFFFF' },
-  settingsBtn: { padding: 8 },
-  settingsBtnText: { color: '#FFFFFF', fontSize: 16 },
   empty: { flex: 1, justifyContent: 'center', alignItems: 'center' },
   emptyText: { fontSize: 18, color: Colors.textLight },
   emptySubtext: { fontSize: 14, color: Colors.placeholder, marginTop: 8 },
